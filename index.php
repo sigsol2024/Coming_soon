@@ -114,7 +114,6 @@ ob_start();
     .hero-grid { min-height: 650px; display: grid; grid-template-columns: minmax(0,1.02fr) minmax(390px,.98fr); align-items: center; gap: clamp(34px,6vw,82px); padding-block: 58px 68px; }
     .hero-copy { position: relative; z-index: 2; max-width: 620px; }
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
-    .eyebrow::before { width: 18px; height: 2px; content: ""; border-radius: 99px; background: var(--orange); }
     h1, h2, h3, p { margin-top: 0; }
     .hero-status {
       display: inline-flex;
@@ -146,21 +145,36 @@ ob_start();
     }
     .hero h1 .accent {
       position: relative;
-      color: var(--blue);
       display: inline;
-      white-space: normal;
+      color: var(--blue);
+      white-space: nowrap;
     }
-    .hero h1 .accent::after {
+    .hero h1 .accent-text { display: inline; }
+    .hero h1 .accent-cursor {
+      display: inline-block;
+      width: 2px;
+      height: .85em;
+      margin-left: 2px;
+      vertical-align: -0.08em;
+      background: var(--orange);
+      opacity: 0;
+    }
+    .hero h1 .accent-cursor.is-on { opacity: 1; animation: caret-blink .9s steps(1) infinite; }
+    .hero h1 .accent-line {
       position: absolute;
       z-index: -1;
       right: 2px;
       bottom: 1px;
       left: 3px;
       height: 7px;
-      content: "";
       border-radius: 99px;
-      background: rgba(239,117,31,.25);
-      transform: rotate(-1.7deg);
+      background: rgba(239,117,31,.28);
+      transform: rotate(-1.7deg) scaleX(0);
+      transform-origin: left center;
+    }
+    .hero h1 .accent-line.is-drawn {
+      transform: rotate(-1.7deg) scaleX(1);
+      transition: transform .55s cubic-bezier(.22,1,.36,1);
     }
     .hero-copy > p:not(.hero-note) { max-width: 525px; margin-bottom: 25px; color: #5D6D83; font-size: 14px; line-height: 1.75; }
     .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
@@ -169,20 +183,26 @@ ob_start();
     .hero-note svg { width: 15px; height: 15px; color: #198163; }
     .hero-visual { position: relative; min-width: 0; min-height: 500px; display: grid; place-items: center; }
     .visual-orbit { position: absolute; width: min(100%,470px); aspect-ratio: 1; border: 1px solid rgba(22,55,158,.09); border-radius: 50%; box-shadow: 0 0 0 26px rgba(32,155,249,.025),0 0 0 56px rgba(32,155,249,.017); }
-    .art-board { position: absolute; inset: 24px 17px 22px; overflow: hidden; border-radius: 25px; background: radial-gradient(circle at 82% 16%,rgba(32,155,249,.35),transparent 35%),linear-gradient(145deg,#061431 0%,#0C2860 58%,#173F8C 100%); box-shadow: 0 24px 62px rgba(6,20,49,.2); }
-    .art-board::before { position: absolute; inset: 0; content: ""; opacity: .15; background: url("assets/topography.svg?v=__ASSET_V__") center / 430px auto; mix-blend-mode: screen; }
+    .art-board { position: absolute; inset: 24px 17px 48px; overflow: visible; border-radius: 25px; background: radial-gradient(circle at 82% 16%,rgba(32,155,249,.35),transparent 35%),linear-gradient(145deg,#061431 0%,#0C2860 58%,#173F8C 100%); box-shadow: 0 24px 62px rgba(6,20,49,.2); }
+    .art-board::before { position: absolute; inset: 0; content: ""; opacity: .15; border-radius: inherit; background: url("assets/topography.svg?v=__ASSET_V__") center / 430px auto; mix-blend-mode: screen; pointer-events: none; }
     .art-glow { position: absolute; right: -72px; bottom: -80px; width: 250px; height: 250px; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; box-shadow: 0 0 0 25px rgba(255,255,255,.025),0 0 0 52px rgba(255,255,255,.018); }
-    .orbit { position: absolute; top: 16%; right: 15%; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 7px rgba(239,117,31,.16); animation: orbit-blink 2.4s ease-in-out infinite; }
+    .orbit { position: absolute; top: 16%; right: 15%; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 7px rgba(239,117,31,.16); }
     .mascot {
       position: absolute;
-      z-index: 2;
-      right: 10%;
-      bottom: -4px;
-      width: 72%;
-      max-width: 340px;
-      height: auto;
+      z-index: 3;
+      left: 50%;
+      bottom: -18px;
+      width: auto;
+      height: min(58%, 260px);
+      max-width: none;
       object-fit: contain;
-      filter: drop-shadow(0 16px 22px rgba(0,0,0,.22));
+      object-position: bottom center;
+      transform: translateX(-50%);
+      image-rendering: auto;
+      -webkit-user-drag: none;
+      user-select: none;
+      pointer-events: none;
+      filter: none;
     }
     .art-caption { position: absolute; z-index: 1; top: 28px; left: 29px; color: #fff; }
     .art-caption small { display: block; margin-bottom: 6px; color: #B9D8FF; font-size: 8px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
@@ -205,23 +225,84 @@ ob_start();
     .progress-track .done::before { border-color: #198163; background: #198163; }
     .progress-track .current::before { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(32,155,249,.13); }
 
-    .capability-band { border-block: 1px solid #E6EDF5; background: #fff; }
-    .capabilities { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
-    .capability-intro { max-width: 220px; color: #718096; font-size: 9px; line-height: 1.5; }
-    .capability-intro strong { display: block; margin-bottom: 3px; color: var(--ink); font-size: 11px; }
-    .capability-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
-    .capability { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid #E5EBF2; border-radius: 999px; color: #43546D; background: #FBFCFE; font-size: 9px; font-weight: 700; white-space: nowrap; }
-    .capability svg { width: 13px; height: 13px; color: var(--blue); }
+    .capability-band {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      border-block: 1px solid #D8E5F3;
+      background: linear-gradient(180deg,#F4F8FC 0%,#EEF5FB 100%);
+    }
+    .capability-band::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      opacity: .07;
+      background: url("assets/topography.svg?v=__ASSET_V__") center / 480px auto;
+      pointer-events: none;
+    }
+    .capabilities { min-height: 118px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 10px; }
+    .capability-intro { max-width: 250px; color: #5F7088; font-size: 11px; line-height: 1.55; }
+    .capability-intro strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 14px; letter-spacing: -.02em; }
+    .capability-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
+    .capability {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 1px solid rgba(22,55,158,.12);
+      border-radius: 12px;
+      color: #31465F;
+      background: rgba(255,255,255,.92);
+      box-shadow: 0 8px 18px rgba(6,20,49,.05);
+      font-size: 11px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .capability svg { width: 15px; height: 15px; color: var(--blue); }
 
     .section { padding-block: 96px; }
     .section-heading { max-width: 665px; margin: 0 auto 40px; text-align: center; }
     .section-heading .eyebrow { margin-bottom: 12px; }
-    .section-heading .eyebrow::before { display: none; }
     .section-heading h2 { margin-bottom: 12px; color: var(--ink); font-size: clamp(32px,3.8vw,47px); font-weight: 700; line-height: 1.14; letter-spacing: -.045em; }
     .section-heading > p:last-child { margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
-    .how { background: #F7FAFE; }
+    .how {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background: radial-gradient(ellipse at 12% 0%,rgba(32,155,249,.08),transparent 42%),linear-gradient(180deg,#F3F8FD 0%,#F7FAFE 55%,#fff 100%);
+    }
+    .how::before {
+      position: absolute;
+      z-index: 0;
+      inset: 0;
+      content: "";
+      opacity: .055;
+      background: url("assets/topography.svg?v=__ASSET_V__") center / 520px auto;
+      pointer-events: none;
+    }
+    .how .wrap { position: relative; z-index: 1; }
     .step-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
-    .step-card { position: relative; min-height: 225px; padding: 24px 23px; border: 1px solid #E1E9F2; border-radius: 14px; background: #fff; box-shadow: 0 8px 23px rgba(6,20,49,.035); transition: transform .2s ease,border-color .2s ease,box-shadow .2s ease; }
+    .step-card {
+      position: relative;
+      min-height: 225px;
+      padding: 24px 23px;
+      overflow: hidden;
+      border: 1px solid #D5E3F0;
+      border-radius: 14px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 10px 26px rgba(6,20,49,.05);
+      transition: transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+    }
+    .step-card::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      opacity: .04;
+      background: url("assets/topography.svg?v=__ASSET_V__") center / 360px auto;
+      pointer-events: none;
+    }
     .step-card:hover { transform: translateY(-4px); border-color: #BCD1E9; box-shadow: 0 15px 30px rgba(6,20,49,.07); }
     .step-number { position: absolute; top: 22px; right: 24px; color: #C6D2E0; font-size: 10px; font-weight: 800; }
     .step-icon { width: 43px; height: 43px; display: grid; place-items: center; margin-bottom: 24px; border-radius: 12px; color: var(--blue); background: #EAF4FF; }
@@ -326,38 +407,23 @@ ob_start();
 
     .reveal {
       opacity: 0;
-      transform: translateY(28px);
-      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+      transform: translateY(22px);
+      transition: opacity .65s cubic-bezier(.22,1,.36,1), transform .65s cubic-bezier(.22,1,.36,1);
       transition-delay: var(--reveal-delay, 0ms);
     }
     .reveal.is-visible {
       opacity: 1;
       transform: translateY(0);
     }
-    .hero-copy .reveal { transform: translateY(18px); }
-    .float-card { animation: float-soft 5.2s ease-in-out infinite; }
-    .progress-card { animation-delay: -2.4s; }
 
     @keyframes status-pulse {
       0% { box-shadow: 0 0 0 0 rgba(239,117,31,.42); }
       70% { box-shadow: 0 0 0 10px rgba(239,117,31,0); }
       100% { box-shadow: 0 0 0 0 rgba(239,117,31,0); }
     }
-    @keyframes orbit-blink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: .55; transform: scale(.86); }
-    }
-    @keyframes float-soft {
-      0%, 100% { transform: translateY(0) rotate(var(--card-tilt, 0deg)); }
-      50% { transform: translateY(-8px) rotate(var(--card-tilt, 0deg)); }
-    }
-    @keyframes hero-title-in {
-      from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
-      to { opacity: 1; transform: translateY(0); filter: blur(0); }
-    }
-    .js .hero h1 {
-      opacity: 0;
-      animation: hero-title-in .9s cubic-bezier(.22,1,.36,1) .18s forwards;
+    @keyframes caret-blink {
+      0%, 45% { opacity: 1; }
+      50%, 100% { opacity: 0; }
     }
 
     @media (max-width: 1040px) {
@@ -430,7 +496,7 @@ ob_start();
       .art-caption { top: 19px; left: 19px; }
       .art-caption small { font-size: 7px; }
       .art-caption strong { max-width: 150px; font-size: 15px; }
-      .mascot { right: 8%; width: 74%; max-width: 280px; }
+      .mascot { height: min(62%, 220px); bottom: -12px; }
       .back-top { width: 42px; height: 42px; right: 14px; bottom: 16px; border-radius: 12px; }
       .brief-card { top: 51px; left: -2px; width: 153px; padding: 9px 10px; border-radius: 10px; }
       .card-kicker { margin-bottom: 5px; font-size: 6px; }
@@ -503,9 +569,9 @@ ob_start();
         animation-iteration-count: 1 !important;
       }
       .reveal { opacity: 1; transform: none; }
-      .js .hero h1 { opacity: 1; animation: none; }
-      .float-card { animation: none; }
-      .hero-status-dot, .orbit { animation: none; }
+      .hero-status-dot { animation: none; }
+      .hero h1 .accent-line { transform: rotate(-1.7deg) scaleX(1); transition: none; }
+      .hero h1 .accent-cursor { display: none; }
     }
   </style>
 </head>
@@ -532,22 +598,22 @@ ob_start();
     <section class="hero" id="top" aria-labelledby="heroTitle">
       <div class="hero-grid wrap">
         <div class="hero-copy">
-          <p class="hero-status reveal is-visible" style="--reveal-delay:40ms"><span class="hero-status-dot" aria-hidden="true"></span>ClikEssence is coming soon</p>
-          <h1 id="heroTitle">Where African creators and brands find their next <span class="accent">great collaboration.</span></h1>
-          <p class="reveal is-visible" style="--reveal-delay:120ms">ClikEssence connects African creators to businesses across Africa and internationally for paid content, brand campaigns, and clearer collaboration from the first brief to final delivery.</p>
-          <div class="hero-actions reveal is-visible" style="--reveal-delay:180ms">
+          <p class="hero-status"><span class="hero-status-dot" aria-hidden="true"></span>ClikEssence is coming soon</p>
+          <h1 id="heroTitle">Where African creators and brands find their next <span class="accent"><span class="accent-text" data-type-text="great collaboration.">great collaboration.</span><span class="accent-cursor" aria-hidden="true"></span><span class="accent-line" aria-hidden="true"></span></span></h1>
+          <p>ClikEssence connects African creators to businesses across Africa and internationally for paid content, brand campaigns, and clearer collaboration from the first brief to final delivery.</p>
+          <div class="hero-actions">
             <a class="button button-primary" href="#waitlist">Join the waitlist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
             <a class="button button-light" href="#how-it-works">Discover ClikEssence</a>
           </div>
-          <p class="hero-note reveal is-visible" style="--reveal-delay:240ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 7.8 7 10 4.1-2.2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg> Join as a creator or a business. We’ll keep you posted as launch gets closer.</p>
+          <p class="hero-note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 7.8 7 10 4.1-2.2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg> Join as a creator or a business. We’ll keep you posted as launch gets closer.</p>
         </div>
-        <div class="hero-visual reveal is-visible" style="--reveal-delay:160ms" aria-label="A sample creator and brand collaboration">
+        <div class="hero-visual" aria-label="A sample creator and brand collaboration">
           <div class="visual-orbit" aria-hidden="true"></div>
           <div class="art-board">
             <div class="art-glow" aria-hidden="true"></div>
             <span class="orbit" aria-hidden="true"></span>
             <div class="art-caption"><small>More good work starts here</small><strong>Connect. Create. Grow.</strong></div>
-            <img class="mascot" src="assets/blue-orbit-wave-smile.gif?v=__ASSET_V__" alt="ClikEssence mascot waving">
+            <img class="mascot staff-mascot" src="assets/blue-orbit-wave-smile.gif" data-src="assets/blue-orbit-wave-smile.gif" data-duration="2500" data-pause="3000" width="320" height="320" alt="ClikEssence Blue Orbit mascot waving">
           </div>
           <article class="float-card brief-card" aria-label="Example content brief">
             <div class="card-kicker"><i aria-hidden="true"></i> Example creator brief</div>
@@ -708,6 +774,54 @@ ob_start();
       window.addEventListener('scroll', updateBackTop, { passive: true });
       window.addEventListener('resize', updateBackTop);
       updateBackTop();
+
+      // Same Blue Orbit GIF loop as staff login: play, pause, restart.
+      if (!reduceMotion) {
+        document.querySelectorAll('.staff-mascot').forEach(function (img) {
+          var src = img.getAttribute('data-src') || img.getAttribute('src');
+          var duration = Number(img.getAttribute('data-duration')) || 2500;
+          var pause = Number(img.getAttribute('data-pause')) || 3000;
+          var timer;
+          function restart() {
+            img.src = src + (src.indexOf('?') === -1 ? '?' : '&') + 't=' + Date.now();
+            timer = window.setTimeout(restart, duration + pause);
+          }
+          timer = window.setTimeout(restart, duration + pause);
+          window.addEventListener('pagehide', function () {
+            window.clearTimeout(timer);
+          }, { once: true });
+        });
+      }
+
+      // Hero: type "great collaboration." then draw the underline.
+      (function () {
+        var textEl = document.querySelector('.accent-text');
+        var cursor = document.querySelector('.accent-cursor');
+        var line = document.querySelector('.accent-line');
+        if (!textEl) return;
+        var full = textEl.getAttribute('data-type-text') || 'great collaboration.';
+        if (reduceMotion) {
+          textEl.textContent = full;
+          if (line) line.classList.add('is-drawn');
+          return;
+        }
+        textEl.textContent = '';
+        if (cursor) cursor.classList.add('is-on');
+        var i = 0;
+        function tick() {
+          i += 1;
+          textEl.textContent = full.slice(0, i);
+          if (i < full.length) {
+            window.setTimeout(tick, 42);
+            return;
+          }
+          if (cursor) {
+            window.setTimeout(function () { cursor.classList.remove('is-on'); }, 700);
+          }
+          if (line) line.classList.add('is-drawn');
+        }
+        window.setTimeout(tick, 280);
+      })();
 
       var reveals = document.querySelectorAll('.reveal');
       if (reduceMotion || !('IntersectionObserver' in window)) {
