@@ -5,6 +5,8 @@ declare(strict_types=1);
 require __DIR__.'/lib/waitlist.php';
 
 header('Content-Type: application/json; charset=utf-8');
+header('Cache-Control: no-cache');
+header('Pragma: no-cache');
 header('X-Content-Type-Options: nosniff');
 
 if (($_SERVER['REQUEST_METHOD'] ?? '') !== 'POST') {

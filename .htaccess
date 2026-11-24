@@ -1,3 +1,35 @@
+# Prefer the PHP entry so HTML cache headers always apply.
+DirectoryIndex index.php index.html
+
+<IfModule mod_headers.c>
+  # HTML / PHP: browser may store, but must revalidate with the server.
+  # (MDN / standard SPA-hosting pattern — not "disable caching forever".)
+  <FilesMatch "(?i)\.(html|htm)$">
+    Header set Cache-Control "no-cache"
+    Header set Pragma "no-cache"
+    Header unset ETag
+  </FilesMatch>
+
+  <FilesMatch "(?i)^index\.php$">
+    Header set Cache-Control "no-cache"
+    Header set Pragma "no-cache"
+    Header unset ETag
+  </FilesMatch>
+
+  # Dynamic endpoints (waitlist): always revalidate.
+  <FilesMatch "(?i)^contact\.php$">
+    Header set Cache-Control "no-cache"
+    Header set Pragma "no-cache"
+  </FilesMatch>
+
+  # Fingerprinted/versioned static assets: long-term cache is safe.
+  <FilesMatch "(?i)\.(css|js|png|jpe?g|gif|svg|webp|ico|woff2?)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+</IfModule>
+
+FileETag None
+
 # The preview router does not apply on InfinityFree. Apache has to refuse these itself.
 <FilesMatch "(?i)\.(sqlite|sqlite3)$">
   <IfModule mod_authz_core.c>
@@ -8,7 +40,7 @@
     Deny from all
   </IfModule>
 </FilesMatch>
-<FilesMatch "(?i)^config\.php$">
+<FilesMatch "(?i)^(config|version)\.php$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
