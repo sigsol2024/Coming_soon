@@ -19,9 +19,10 @@ if (is_file(__DIR__.'/version.php')) {
 }
 
 header('Content-Type: text/html; charset=utf-8');
-header('Cache-Control: no-cache');
+header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('X-Content-Type-Options: nosniff');
+header('X-ClikEssence-Build: '.substr(hash('sha256', (string) filemtime(__DIR__.'/index.html').'|'.$salt), 0, 12));
 
 $html = file_get_contents(__DIR__.'/index.html');
 if ($html === false) {

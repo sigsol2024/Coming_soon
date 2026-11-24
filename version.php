@@ -11,4 +11,4 @@ declare(strict_types=1);
  * Bump it only if a proxy/CDN is still sticky after a deploy and you need
  * every asset URL to change at once. Example: 20261125-1 → 20261125-2
  */
-return '20261125-1';
+return '20261125-2';
