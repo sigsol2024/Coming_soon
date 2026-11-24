@@ -1,28 +1,20 @@
-# Prefer the PHP entry so HTML cache headers always apply.
-DirectoryIndex index.php index.html
+# Single public homepage entry.
+DirectoryIndex index.php
 
-# Never let visitors sit on raw index.html (it skips PHP fingerprints).
+# Old bookmark /index.html → homepage. Block raw template access.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteRule ^index\.html$ /index.php [R=302,L]
+  RewriteRule ^index\.html$ / [R=301,L]
+  RewriteRule ^home\.html$ / [R=301,L]
 </IfModule>
 
 <IfModule mod_headers.c>
-  # HTML / PHP: browser may store, but must revalidate with the server.
-  # (MDN / standard SPA-hosting pattern — not "disable caching forever".)
-  <FilesMatch "(?i)\.(html|htm)$">
-    Header set Cache-Control "no-cache, must-revalidate"
-    Header set Pragma "no-cache"
-    Header unset ETag
-  </FilesMatch>
-
   <FilesMatch "(?i)^index\.php$">
     Header set Cache-Control "no-cache, must-revalidate"
     Header set Pragma "no-cache"
     Header unset ETag
   </FilesMatch>
 
-  # Dynamic endpoints (waitlist): always revalidate.
   <FilesMatch "(?i)^contact\.php$">
     Header set Cache-Control "no-cache"
     Header set Pragma "no-cache"

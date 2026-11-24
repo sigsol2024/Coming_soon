@@ -3,15 +3,14 @@
 declare(strict_types=1);
 
 /**
- * Serve the Coming Soon page with the cache strategy your team agreed:
- * - HTML: Cache-Control: no-cache (browser may store, but must revalidate)
- * - Assets: long-lived URLs that change automatically when the file changes
+ * Public homepage entry (the only index).
  *
- * No build tool required: each assets/... URL gets a fingerprint from
- * filemtime + filesize. Push a changed image/CSS/GIF and visitors fetch it.
+ * home.html holds the markup. This file adds cache headers and automatic
+ * asset fingerprints so browsers pick up new images/CSS after a deploy.
  * Optional salt in version.php forces a global bust if a CDN is sticky.
  */
 
+$template = __DIR__.'/home.html';
 $salt = '';
 if (is_file(__DIR__.'/version.php')) {
     $raw = require __DIR__.'/version.php';
@@ -22,9 +21,9 @@ header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('X-Content-Type-Options: nosniff');
-header('X-ClikEssence-Build: '.substr(hash('sha256', (string) filemtime(__DIR__.'/index.html').'|'.$salt), 0, 12));
+header('X-ClikEssence-Build: '.substr(hash('sha256', (string) (@filemtime($template) ?: 0).'|'.$salt), 0, 12));
 
-$html = file_get_contents(__DIR__.'/index.html');
+$html = is_file($template) ? file_get_contents($template) : false;
 if ($html === false) {
     http_response_code(500);
     header('Content-Type: text/plain; charset=utf-8');
@@ -55,5 +54,4 @@ if ($html === null) {
     exit;
 }
 
-// Drop any leftover placeholder if an asset path was missed.
 echo str_replace('__ASSET_V__', $salt !== '' ? $salt : '1', $html);
