@@ -1,7 +1,7 @@
 # Single public homepage entry.
 DirectoryIndex index.php
 
-# Old bookmark /index.html → homepage. Block raw template access.
+# Old bookmarks for removed HTML entry points → homepage.
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteRule ^index\.html$ / [R=301,L]

@@ -3,14 +3,11 @@
 declare(strict_types=1);
 
 /**
- * Public homepage entry (the only index).
- *
- * home.html holds the markup. This file adds cache headers and automatic
- * asset fingerprints so browsers pick up new images/CSS after a deploy.
- * Optional salt in version.php forces a global bust if a CDN is sticky.
+ * ClikEssence Coming Soon - sole public homepage.
+ * Markup lives in this file. A static copy is kept under
+ * Documents/design reference/Coming Soon/ for design reference only.
  */
 
-$template = __DIR__.'/home.html';
 $salt = '';
 if (is_file(__DIR__.'/version.php')) {
     $raw = require __DIR__.'/version.php';
@@ -21,9 +18,749 @@ header('Content-Type: text/html; charset=utf-8');
 header('Cache-Control: no-cache, must-revalidate');
 header('Pragma: no-cache');
 header('X-Content-Type-Options: nosniff');
-header('X-ClikEssence-Build: '.substr(hash('sha256', (string) (@filemtime($template) ?: 0).'|'.$salt), 0, 12));
+header('X-ClikEssence-Build: '.substr(hash('sha256', (string) filemtime(__FILE__).'|'.$salt), 0, 12));
 
-$html = is_file($template) ? file_get_contents($template) : false;
+ob_start();
+?><!doctype html>
+<html lang="en">
+<head>
+  <script>document.documentElement.classList.add("js")</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#061431">
+  <meta http-equiv="Cache-Control" content="no-cache">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta name="robots" content="noindex, nofollow, noarchive">
+  <title>ClikEssence Coming Soon</title>
+  <meta name="description" content="ClikEssence connects African creators to businesses across Africa and internationally for paid content, brand campaigns, and clearer collaborations. Join the waitlist.">
+  <meta property="og:title" content="ClikEssence Coming Soon">
+  <meta property="og:description" content="A platform that connects African creators to businesses in Africa and around the world. Join the ClikEssence waitlist.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="assets/clikessence-logo-color.png?v=__ASSET_V__">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="ClikEssence Coming Soon">
+  <meta name="twitter:description" content="A platform that connects African creators to businesses in Africa and around the world. Join the waitlist.">
+  <link rel="icon" href="assets/favicon.png?v=__ASSET_V__" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #061431;
+      --navy: #0C2860;
+      --blue: #16379E;
+      --sky: #209BF9;
+      --pale: #DFF1FF;
+      --orange: #EF751F;
+      --muted: #64748B;
+      --line: #DCE5EF;
+      --canvas: #F6F9FC;
+      --font: "Open Sans", "Segoe UI", Arial, sans-serif;
+      font-family: var(--font);
+      color: var(--ink);
+      font-synthesis: none;
+      text-rendering: optimizeLegibility;
+      scroll-behavior: smooth;
+    }
+    * { box-sizing: border-box; }
+    html {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    html::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    body {
+      min-width: 320px;
+      min-height: 100%;
+      margin: 0;
+      background: #fff;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    body::-webkit-scrollbar { width: 0; height: 0; display: none; }
+    img { display: block; max-width: 100%; }
+    a, button { font: inherit; -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; }
+    :focus-visible { outline: 3px solid rgba(32,155,249,.7); outline-offset: 3px; }
+    .wrap { width: min(100% - 48px, 1220px); margin-inline: auto; }
+    .skip { position: fixed; z-index: 100; top: 10px; left: 10px; padding: 10px 14px; border-radius: 8px; color: #fff; background: var(--ink); transform: translateY(-150%); }
+    .skip:focus { transform: translateY(0); }
+    .topbar { position: sticky; z-index: 30; top: 0; border-bottom: 1px solid rgba(220,229,239,.85); background: rgba(255,255,255,.93); backdrop-filter: blur(14px); }
+    .nav { min-height: 74px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { flex: 0 0 auto; display: inline-flex; align-items: center; }
+    .brand img { width: 176px; max-height: 46px; object-fit: contain; object-position: left center; }
+    .nav-links { display: flex; align-items: center; gap: clamp(18px,2.5vw,34px); margin-left: auto; }
+    .nav-links a, .nav-detail { color: #52647B; font-size: 12px; font-weight: 700; transition: color .18s ease; }
+    .nav-links a:hover, .nav-detail:hover { color: var(--blue); }
+    .nav-actions { display: flex; align-items: center; gap: 16px; }
+    .button { min-height: 46px; display: inline-flex; align-items: center; justify-content: center; gap: 9px; padding: 0 18px; border: 1px solid transparent; border-radius: 9px; font-size: 11px; font-weight: 800; text-decoration: none; transition: transform .18s ease,box-shadow .18s ease,background .18s ease,border-color .18s ease; }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary { color: #fff; background: var(--blue); box-shadow: 0 8px 18px rgba(22,55,158,.17); }
+    .button-primary:hover { background: #102D82; box-shadow: 0 11px 22px rgba(22,55,158,.23); }
+    .button-light { border-color: #D5E0EC; color: var(--ink); background: #fff; }
+    .button-light:hover { border-color: #AFC4DA; background: #F8FBFF; }
+    .button svg { width: 16px; height: 16px; }
+    .menu-toggle { width: 40px; height: 40px; display: none; place-items: center; padding: 0; border: 1px solid var(--line); border-radius: 9px; color: var(--ink); background: #fff; }
+    .menu-toggle svg { width: 20px; height: 20px; }
+    .mobile-waitlist { display: none; }
+
+    .hero { position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(ellipse at 76% 16%,rgba(32,155,249,.11),transparent 32%),radial-gradient(ellipse at 9% 84%,rgba(239,117,31,.05),transparent 32%),linear-gradient(180deg,#F7FAFE 0%,#fff 100%); }
+    .hero::before { position: absolute; z-index: -2; inset: 0; content: ""; opacity: .05; background: url("assets/topography.svg?v=__ASSET_V__") center / 550px auto; pointer-events: none; }
+    .hero::after { position: absolute; z-index: -1; top: 5%; right: -160px; width: 410px; height: 410px; content: ""; border: 1px solid rgba(22,55,158,.08); border-radius: 50%; box-shadow: 0 0 0 36px rgba(22,55,158,.025),0 0 0 74px rgba(22,55,158,.016); pointer-events: none; }
+    .hero-grid { min-height: 650px; display: grid; grid-template-columns: minmax(0,1.02fr) minmax(390px,.98fr); align-items: center; gap: clamp(34px,6vw,82px); padding-block: 58px 68px; }
+    .hero-copy { position: relative; z-index: 2; max-width: 620px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .eyebrow::before { width: 18px; height: 2px; content: ""; border-radius: 99px; background: var(--orange); }
+    h1, h2, h3, p { margin-top: 0; }
+    .hero-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin: 0 0 14px;
+      color: var(--orange);
+      font-size: clamp(15px,1.7vw,20px);
+      font-weight: 800;
+      letter-spacing: -.02em;
+      line-height: 1.2;
+    }
+    .hero-status-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--orange);
+      box-shadow: 0 0 0 0 rgba(239,117,31,.45);
+      animation: status-pulse 1.8s ease-out infinite;
+    }
+    .hero h1 {
+      max-width: 560px;
+      margin-bottom: 16px;
+      color: var(--ink);
+      font-size: clamp(32px,3.9vw,48px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -.04em;
+    }
+    .hero h1 .accent {
+      position: relative;
+      color: var(--blue);
+      display: inline;
+      white-space: normal;
+    }
+    .hero h1 .accent::after {
+      position: absolute;
+      z-index: -1;
+      right: 2px;
+      bottom: 1px;
+      left: 3px;
+      height: 7px;
+      content: "";
+      border-radius: 99px;
+      background: rgba(239,117,31,.25);
+      transform: rotate(-1.7deg);
+    }
+    .hero-copy > p:not(.hero-note) { max-width: 525px; margin-bottom: 25px; color: #5D6D83; font-size: 14px; line-height: 1.75; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 11px; }
+    .hero-actions .button { min-height: 49px; padding-inline: 19px; }
+    .hero-note { display: flex; align-items: center; gap: 8px; margin: 17px 0 0; color: #7A8798; font-size: 10px; }
+    .hero-note svg { width: 15px; height: 15px; color: #198163; }
+    .hero-visual { position: relative; min-width: 0; min-height: 500px; display: grid; place-items: center; }
+    .visual-orbit { position: absolute; width: min(100%,470px); aspect-ratio: 1; border: 1px solid rgba(22,55,158,.09); border-radius: 50%; box-shadow: 0 0 0 26px rgba(32,155,249,.025),0 0 0 56px rgba(32,155,249,.017); }
+    .art-board { position: absolute; inset: 24px 17px 22px; overflow: hidden; border-radius: 25px; background: radial-gradient(circle at 82% 16%,rgba(32,155,249,.35),transparent 35%),linear-gradient(145deg,#061431 0%,#0C2860 58%,#173F8C 100%); box-shadow: 0 24px 62px rgba(6,20,49,.2); }
+    .art-board::before { position: absolute; inset: 0; content: ""; opacity: .15; background: url("assets/topography.svg?v=__ASSET_V__") center / 430px auto; mix-blend-mode: screen; }
+    .art-glow { position: absolute; right: -72px; bottom: -80px; width: 250px; height: 250px; border: 1px solid rgba(255,255,255,.16); border-radius: 50%; box-shadow: 0 0 0 25px rgba(255,255,255,.025),0 0 0 52px rgba(255,255,255,.018); }
+    .orbit { position: absolute; top: 16%; right: 15%; width: 10px; height: 10px; border-radius: 50%; background: var(--orange); box-shadow: 0 0 0 7px rgba(239,117,31,.16); animation: orbit-blink 2.4s ease-in-out infinite; }
+    .mascot {
+      position: absolute;
+      z-index: 2;
+      right: 10%;
+      bottom: -4px;
+      width: 72%;
+      max-width: 340px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 16px 22px rgba(0,0,0,.22));
+    }
+    .art-caption { position: absolute; z-index: 1; top: 28px; left: 29px; color: #fff; }
+    .art-caption small { display: block; margin-bottom: 6px; color: #B9D8FF; font-size: 8px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+    .art-caption strong { display: block; max-width: 200px; font-size: 19px; line-height: 1.2; letter-spacing: -.03em; }
+    .float-card { position: absolute; z-index: 4; border: 1px solid rgba(220,229,239,.94); border-radius: 13px; background: rgba(255,255,255,.97); box-shadow: 0 15px 38px rgba(6,20,49,.16); }
+    .brief-card { top: 66px; left: -4px; width: 198px; padding: 13px 14px; --card-tilt: -3deg; transform: rotate(-3deg); }
+    .card-kicker { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; color: #708197; font-size: 8px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; }
+    .card-kicker i { width: 7px; height: 7px; border-radius: 50%; background: #24A278; }
+    .brief-card strong { display: block; color: var(--ink); font-size: 11px; }
+    .brief-card p { margin: 4px 0 10px; color: #74839A; font-size: 8px; line-height: 1.5; }
+    .brief-foot { display: flex; align-items: center; justify-content: space-between; padding-top: 8px; border-top: 1px solid #EDF1F5; color: #7A8798; font-size: 7px; }
+    .brief-foot b { color: var(--blue); font-size: 8px; }
+    .progress-card { right: -3px; bottom: 52px; width: 220px; padding: 13px 14px 12px; --card-tilt: 2deg; transform: rotate(2deg); }
+    .progress-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 12px; }
+    .progress-title strong { color: var(--ink); font-size: 9px; }
+    .progress-title span { padding: 4px 7px; border-radius: 99px; color: #12694D; background: #E5F6EF; font-size: 7px; font-weight: 800; }
+    .progress-track { display: grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+    .progress-track span { position: relative; padding-top: 12px; color: #8290A2; font-size: 7px; }
+    .progress-track span::before { position: absolute; top: 0; left: 0; width: 7px; height: 7px; content: ""; border: 2px solid #C9D4E1; border-radius: 50%; background: white; }
+    .progress-track .done::before { border-color: #198163; background: #198163; }
+    .progress-track .current::before { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(32,155,249,.13); }
+
+    .capability-band { border-block: 1px solid #E6EDF5; background: #fff; }
+    .capabilities { min-height: 92px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .capability-intro { max-width: 220px; color: #718096; font-size: 9px; line-height: 1.5; }
+    .capability-intro strong { display: block; margin-bottom: 3px; color: var(--ink); font-size: 11px; }
+    .capability-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+    .capability { display: inline-flex; align-items: center; gap: 7px; padding: 8px 11px; border: 1px solid #E5EBF2; border-radius: 999px; color: #43546D; background: #FBFCFE; font-size: 9px; font-weight: 700; white-space: nowrap; }
+    .capability svg { width: 13px; height: 13px; color: var(--blue); }
+
+    .section { padding-block: 96px; }
+    .section-heading { max-width: 665px; margin: 0 auto 40px; text-align: center; }
+    .section-heading .eyebrow { margin-bottom: 12px; }
+    .section-heading .eyebrow::before { display: none; }
+    .section-heading h2 { margin-bottom: 12px; color: var(--ink); font-size: clamp(32px,3.8vw,47px); font-weight: 700; line-height: 1.14; letter-spacing: -.045em; }
+    .section-heading > p:last-child { margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+    .how { background: #F7FAFE; }
+    .step-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
+    .step-card { position: relative; min-height: 225px; padding: 24px 23px; border: 1px solid #E1E9F2; border-radius: 14px; background: #fff; box-shadow: 0 8px 23px rgba(6,20,49,.035); transition: transform .2s ease,border-color .2s ease,box-shadow .2s ease; }
+    .step-card:hover { transform: translateY(-4px); border-color: #BCD1E9; box-shadow: 0 15px 30px rgba(6,20,49,.07); }
+    .step-number { position: absolute; top: 22px; right: 24px; color: #C6D2E0; font-size: 10px; font-weight: 800; }
+    .step-icon { width: 43px; height: 43px; display: grid; place-items: center; margin-bottom: 24px; border-radius: 12px; color: var(--blue); background: #EAF4FF; }
+    .step-card:nth-child(2) .step-icon { color: #A44E16; background: #FFF1E6; }
+    .step-card:nth-child(3) .step-icon { color: #147654; background: #E6F7F0; }
+    .step-icon svg { width: 21px; height: 21px; }
+    .step-card h3 { margin-bottom: 8px; color: var(--ink); font-size: 15px; letter-spacing: -.02em; }
+    .step-card p { max-width: 310px; margin-bottom: 0; color: #68788E; font-size: 10px; line-height: 1.7; }
+
+    .audience { background: #fff; }
+    .audience-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 18px; }
+    .audience-card { min-height: 315px; display: grid; grid-template-columns: .9fr 1.1fr; overflow: hidden; border: 1px solid #E0E8F1; border-radius: 16px; background: #F9FBFE; box-shadow: 0 8px 25px rgba(6,20,49,.04); }
+    .audience-image { min-height: 315px; overflow: hidden; background: #DCE7F0; }
+    .audience-image img { width: 100%; height: 100%; min-height: 315px; object-fit: cover; transition: transform .5s ease; }
+    .audience-card:hover .audience-image img { transform: scale(1.04); }
+    .audience-copy { align-self: center; padding: 24px clamp(18px,2.5vw,30px); }
+    .audience-copy .eyebrow { margin-bottom: 10px; font-size: 8px; }
+    .audience-copy h3 { margin-bottom: 9px; color: var(--ink); font-size: clamp(20px,2vw,26px); line-height: 1.18; letter-spacing: -.035em; }
+    .audience-copy p { margin-bottom: 15px; color: #68788E; font-size: 10px; line-height: 1.7; }
+    .audience-points { display: grid; gap: 7px; margin: 0 0 17px; padding: 0; list-style: none; }
+    .audience-points li { display: flex; align-items: flex-start; gap: 7px; color: #45566E; font-size: 9px; line-height: 1.5; }
+    .audience-points svg { width: 13px; height: 13px; flex: 0 0 13px; color: #16815D; }
+    .audience-copy .button { min-height: 39px; padding-inline: 12px; font-size: 9px; }
+
+    .waitlist { position: relative; isolation: isolate; overflow: hidden; background: radial-gradient(ellipse at 12% 12%,rgba(32,155,249,.09),transparent 32%),linear-gradient(180deg,#F4F8FC,#fff); }
+    .waitlist::before { position: absolute; z-index: -1; inset: 0; content: ""; opacity: .045; background: url("assets/topography.svg?v=__ASSET_V__") center / 510px auto; pointer-events: none; }
+    .wait-grid { display: grid; grid-template-columns: minmax(0,.9fr) minmax(390px,1.1fr); align-items: center; gap: clamp(42px,7vw,88px); }
+    .wait-copy { max-width: 480px; }
+    .wait-copy h2 { margin-bottom: 13px; color: var(--ink); font-size: clamp(35px,4vw,49px); line-height: 1.1; letter-spacing: -.045em; }
+    .wait-copy > p { margin-bottom: 22px; color: #65758B; font-size: 12px; line-height: 1.75; }
+    .contact-list { display: flex; flex-wrap: wrap; gap: 11px 18px; }
+    .contact-list a { display: inline-flex; align-items: center; gap: 7px; color: var(--blue); font-size: 10px; font-weight: 800; }
+    .contact-list svg { width: 15px; height: 15px; }
+    .form-card { position: relative; overflow: hidden; padding: clamp(24px,3vw,34px); border: 1px solid rgba(6,20,49,.08); border-radius: 17px; background: rgba(255,255,255,.97); box-shadow: 0 18px 50px rgba(6,20,49,.09); }
+    .form-card::before { position: absolute; inset: 0; content: ""; opacity: .035; background: url("assets/topography.svg?v=__ASSET_V__") center / 430px auto; pointer-events: none; }
+    .form-card form { position: relative; z-index: 1; }
+    .form-heading { margin-bottom: 20px; }
+    .form-heading h3 { margin-bottom: 5px; color: var(--ink); font-size: 17px; }
+    .form-heading p { margin-bottom: 0; color: #728197; font-size: 10px; line-height: 1.6; }
+    fieldset { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
+    legend, .field label { display: block; margin-bottom: 8px; color: #2D3D56; font-size: 10px; font-weight: 800; }
+    .choices { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 9px; }
+    .choices label { min-height: 48px; display: flex; align-items: center; gap: 9px; margin: 0; padding: 0 13px; border: 1px solid #D7E1EC; border-radius: 9px; color: #41536B; background: #fff; font-size: 10px; font-weight: 700; cursor: pointer; transition: border-color .18s ease,background .18s ease,box-shadow .18s ease; }
+    .choices label:hover { border-color: #9CB8D4; }
+    .choices input { width: 15px; height: 15px; margin: 0; accent-color: var(--blue); }
+    .choices label:has(input:checked) { border-color: var(--blue); background: #F1F7FE; box-shadow: 0 0 0 2px rgba(32,155,249,.1); }
+    .field { margin-bottom: 14px; }
+    .field input { width: 100%; height: 46px; padding: 0 13px; border: 1px solid #D2DDE8; border-radius: 8px; outline: none; color: var(--ink); background: #fff; font: inherit; font-size: 11px; transition: border-color .15s ease,box-shadow .15s ease; }
+    .field input:focus { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(32,155,249,.13); }
+    .field input::placeholder { color: #9AA6B5; }
+    .hp { position: absolute !important; left: -10000px !important; width: 1px !important; height: 1px !important; overflow: hidden !important; }
+    .submit-button { width: 100%; min-height: 47px; border: 1px solid transparent; font-size: 10px; }
+    .submit-button[aria-busy="true"] { cursor: wait; opacity: .72; }
+    .status { min-height: 0; margin: 0; color: #A62323; font-size: 10px; line-height: 1.5; }
+    .status:empty { display: none; }
+    .status.ok { margin-top: 12px; padding: 10px 11px; border: 1px solid #CFE9DC; border-radius: 8px; color: #11694D; background: #F0FAF5; }
+    .status.bad { margin-top: 12px; padding: 10px 11px; border: 1px solid #F2D5D5; border-radius: 8px; color: #9A1E1E; background: #FFF7F7; }
+    .form-privacy { display: flex; align-items: flex-start; gap: 7px; margin: 11px 0 0; color: #8794A5; font-size: 8px; line-height: 1.55; }
+    .form-privacy svg { width: 13px; height: 13px; flex: 0 0 13px; margin-top: 1px; color: #198163; }
+
+    .footer { color: #DCE8F8; background: #061431; }
+    .footer-main { display: grid; grid-template-columns: 1.35fr 1fr 1fr; gap: 36px; padding-block: 43px 34px; }
+    .footer-brand strong { display: block; margin-bottom: 8px; color: #fff; font-size: 16px; letter-spacing: -.02em; }
+    .footer-brand p { max-width: 275px; margin: 0; color: rgba(220,232,248,.66); font-size: 9px; line-height: 1.7; }
+    .footer-column h2 { margin: 0 0 12px; color: #fff; font-size: 9px; letter-spacing: .08em; text-transform: uppercase; }
+    .footer-column ul { display: grid; gap: 9px; margin: 0; padding: 0; list-style: none; }
+    .footer-column a { color: rgba(220,232,248,.68); font-size: 9px; }
+    .footer-column a:hover { color: #fff; text-decoration: underline; }
+    .footer-bottom { min-height: 48px; display: flex; align-items: center; justify-content: space-between; gap: 15px; border-top: 1px solid rgba(220,232,248,.15); color: rgba(220,232,248,.52); font-size: 8px; }
+    .footer-meta { display: flex; flex-wrap: wrap; gap: 16px; }
+    .footer-meta a { color: rgba(220,232,248,.7); }
+    .footer-meta a:hover { color: #fff; }
+
+    .back-top {
+      position: fixed;
+      z-index: 60;
+      right: max(18px, env(safe-area-inset-right, 0px));
+      bottom: max(22px, env(safe-area-inset-bottom, 0px));
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(22,55,158,.14);
+      border-radius: 14px;
+      color: #fff;
+      background: var(--blue);
+      box-shadow: 0 12px 28px rgba(6,20,49,.22);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transform: translateY(12px) scale(.96);
+      transition: opacity .28s ease, transform .28s ease, visibility .28s ease, background .18s ease;
+    }
+    .back-top.is-visible {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transform: translateY(0) scale(1);
+    }
+    .back-top:hover { background: #102D82; }
+    .back-top svg { width: 18px; height: 18px; }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s cubic-bezier(.22,1,.36,1), transform .7s cubic-bezier(.22,1,.36,1);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .hero-copy .reveal { transform: translateY(18px); }
+    .float-card { animation: float-soft 5.2s ease-in-out infinite; }
+    .progress-card { animation-delay: -2.4s; }
+
+    @keyframes status-pulse {
+      0% { box-shadow: 0 0 0 0 rgba(239,117,31,.42); }
+      70% { box-shadow: 0 0 0 10px rgba(239,117,31,0); }
+      100% { box-shadow: 0 0 0 0 rgba(239,117,31,0); }
+    }
+    @keyframes orbit-blink {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .55; transform: scale(.86); }
+    }
+    @keyframes float-soft {
+      0%, 100% { transform: translateY(0) rotate(var(--card-tilt, 0deg)); }
+      50% { transform: translateY(-8px) rotate(var(--card-tilt, 0deg)); }
+    }
+    @keyframes hero-title-in {
+      from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+      to { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    .js .hero h1 {
+      opacity: 0;
+      animation: hero-title-in .9s cubic-bezier(.22,1,.36,1) .18s forwards;
+    }
+
+    @media (max-width: 1040px) {
+      .nav-links { gap: 17px; }
+      .nav-links a { font-size: 10px; }
+      .hero-grid { grid-template-columns: minmax(0,1fr) minmax(350px,.92fr); gap: 32px; }
+      .hero h1 { font-size: clamp(30px,4.4vw,44px); }
+      .hero-visual { min-height: 455px; }
+      .brief-card { left: -13px; }
+      .progress-card { right: -8px; }
+      .audience-card { grid-template-columns: .78fr 1.22fr; }
+      .wait-grid { grid-template-columns: minmax(0,.85fr) minmax(370px,1.15fr); gap: 40px; }
+    }
+    @media (max-width: 820px) {
+      .wrap { width: min(100% - 36px, 700px); }
+      .nav { min-height: 68px; gap: 12px; }
+      .nav-links { position: absolute; top: calc(100% + 1px); right: 0; left: 0; display: none; align-items: stretch; gap: 0; padding: 8px 18px 16px; border-bottom: 1px solid var(--line); background: rgba(255,255,255,.98); box-shadow: 0 14px 24px rgba(6,20,49,.08); }
+      .nav-links.is-open { display: grid; }
+      .nav-links a { padding: 12px 4px; border-bottom: 1px solid #EEF2F6; font-size: 11px; }
+      .nav-links a:last-child { border-bottom: 0; }
+      .nav-links .mobile-waitlist { display: block; }
+      .nav-detail { display: none; }
+      .nav-actions { margin-left: auto; gap: 9px; }
+      .nav-actions > .button { min-height: 40px; padding-inline: 12px; font-size: 9px; }
+      .menu-toggle { display: grid; }
+      .hero-grid { min-height: 0; grid-template-columns: 1fr; gap: 14px; padding-block: 57px 48px; }
+      .hero-copy { max-width: 680px; margin-inline: auto; text-align: center; }
+      .hero-copy .eyebrow, .hero-status { justify-content: center; }
+      .hero h1, .hero-copy > p:not(.hero-note) { margin-right: auto; margin-left: auto; }
+      .hero-actions { justify-content: center; }
+      .hero-note { justify-content: center; }
+      .hero-visual { width: min(100%,570px); min-height: 465px; margin: 0 auto; }
+      .art-board { inset: 22px 29px 19px; }
+      .brief-card { left: 0; }
+      .progress-card { right: 1px; }
+      .capabilities { align-items: flex-start; flex-direction: column; justify-content: center; gap: 11px; padding-block: 17px; }
+      .capability-intro { max-width: none; }
+      .capability-list { justify-content: flex-start; }
+      .section { padding-block: 76px; }
+      .section-heading { margin-bottom: 31px; }
+      .step-grid { gap: 12px; }
+      .step-card { min-height: 224px; padding: 21px 18px; }
+      .step-card h3 { font-size: 14px; }
+      .step-card p { font-size: 9px; }
+      .audience-grid { grid-template-columns: 1fr; }
+      .audience-card { grid-template-columns: .82fr 1.18fr; }
+      .audience-image, .audience-image img { min-height: 300px; }
+      .audience-copy { padding-inline: 25px; }
+      .wait-grid { grid-template-columns: 1fr; gap: 28px; }
+      .wait-copy { max-width: 620px; }
+      .form-card { width: min(100%,620px); }
+    }
+    @media (max-width: 560px) {
+      .wrap { width: min(100% - 30px, 480px); }
+      .brand img { width: 136px; }
+      .nav { gap: 8px; }
+      .nav-actions { gap: 7px; }
+      .nav-actions > .button { min-height: 38px; padding-inline: 10px; font-size: 8px; }
+      .menu-toggle { width: 37px; height: 37px; }
+      .hero-grid { gap: 9px; padding-block: 43px 35px; }
+      .hero-status { margin-bottom: 12px; font-size: clamp(14px,4.4vw,18px); }
+      .hero h1 { margin-bottom: 14px; font-size: clamp(28px,8.2vw,38px); }
+      .hero-copy > p:not(.hero-note) { margin-bottom: 19px; font-size: 11px; line-height: 1.7; }
+      .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .hero-actions .button { min-height: 44px; padding-inline: 8px; font-size: 9px; }
+      .hero-note { align-items: flex-start; font-size: 8px; text-align: left; }
+      .hero-visual { min-height: 360px; margin-top: 8px; }
+      .visual-orbit { width: 87%; }
+      .art-board { inset: 15px 11px; border-radius: 19px; }
+      .art-caption { top: 19px; left: 19px; }
+      .art-caption small { font-size: 7px; }
+      .art-caption strong { max-width: 150px; font-size: 15px; }
+      .mascot { right: 8%; width: 74%; max-width: 280px; }
+      .back-top { width: 42px; height: 42px; right: 14px; bottom: 16px; border-radius: 12px; }
+      .brief-card { top: 51px; left: -2px; width: 153px; padding: 9px 10px; border-radius: 10px; }
+      .card-kicker { margin-bottom: 5px; font-size: 6px; }
+      .brief-card strong { font-size: 9px; }
+      .brief-card p { margin: 3px 0 7px; font-size: 7px; }
+      .brief-foot { padding-top: 6px; font-size: 6px; }
+      .brief-foot b { font-size: 7px; }
+      .progress-card { right: -2px; bottom: 23px; width: 172px; padding: 10px; border-radius: 10px; }
+      .progress-title { margin-bottom: 9px; }
+      .progress-title strong { font-size: 7px; }
+      .progress-title span { padding: 3px 5px; font-size: 6px; }
+      .progress-track { gap: 3px; }
+      .progress-track span { font-size: 6px; }
+      .capabilities { gap: 8px; }
+      .capability-intro { font-size: 8px; }
+      .capability-intro strong { font-size: 10px; }
+      .capability-list { gap: 5px; }
+      .capability { padding: 7px 8px; font-size: 7px; }
+      .capability svg { width: 11px; height: 11px; }
+      .section { padding-block: 62px; }
+      .section-heading { margin-bottom: 25px; }
+      .section-heading .eyebrow { margin-bottom: 8px; font-size: 8px; }
+      .section-heading h2 { margin-bottom: 9px; font-size: clamp(29px,8vw,37px); }
+      .section-heading > p:last-child { font-size: 10px; }
+      .step-grid { grid-template-columns: 1fr; gap: 9px; }
+      .step-card { min-height: 0; padding: 17px; }
+      .step-icon { width: 37px; height: 37px; margin-bottom: 13px; }
+      .step-number { top: 18px; right: 19px; }
+      .step-card h3 { font-size: 13px; }
+      .step-card p { max-width: none; font-size: 9px; }
+      .audience-grid { gap: 12px; }
+      .audience-card { min-height: 0; grid-template-columns: 1fr; }
+      .audience-image { height: 175px; min-height: 175px; }
+      .audience-image img { min-height: 175px; max-height: 175px; }
+      .audience-copy { padding: 18px; }
+      .audience-copy .eyebrow { margin-bottom: 8px; }
+      .audience-copy h3 { max-width: 300px; font-size: 22px; }
+      .audience-copy p { font-size: 9px; }
+      .audience-points { grid-template-columns: 1fr 1fr; gap: 7px; }
+      .audience-points li { font-size: 8px; }
+      .audience-copy .button { min-height: 37px; }
+      .wait-grid { gap: 22px; }
+      .wait-copy h2 { font-size: 36px; }
+      .wait-copy > p { font-size: 10px; }
+      .contact-list { gap: 10px 14px; }
+      .contact-list a { font-size: 9px; }
+      .form-card { padding: 20px 17px; border-radius: 14px; }
+      .form-heading { margin-bottom: 16px; }
+      .form-heading h3 { font-size: 15px; }
+      .form-heading p { font-size: 9px; }
+      fieldset { margin-bottom: 13px; }
+      legend, .field label { margin-bottom: 7px; font-size: 9px; }
+      .choices { gap: 7px; }
+      .choices label { min-height: 43px; gap: 7px; padding-inline: 9px; font-size: 9px; }
+      .field { margin-bottom: 11px; }
+      .field input { height: 43px; font-size: 10px; }
+      .submit-button { min-height: 44px; }
+      .form-privacy { font-size: 7px; }
+      .footer-main { grid-template-columns: 1fr 1fr; gap: 21px 16px; padding-block: 34px 26px; }
+      .footer-brand { grid-column: 1 / -1; }
+      .footer-column h2 { margin-bottom: 10px; }
+      .footer-bottom { align-items: flex-start; flex-direction: column; justify-content: center; padding-block: 12px; }
+      .footer-meta { gap: 13px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+      .reveal { opacity: 1; transform: none; }
+      .js .hero h1 { opacity: 1; animation: none; }
+      .float-card { animation: none; }
+      .hero-status-dot, .orbit { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="topbar">
+    <nav class="nav wrap" aria-label="Main navigation">
+      <a class="brand" href="#top" aria-label="ClikEssence home"><img src="assets/clikessence-logo-color.png?v=__ASSET_V__" alt="ClikEssence"></a>
+      <div class="nav-links" id="siteNav">
+        <a href="#businesses">For businesses</a>
+        <a href="#creators">For creators</a>
+        <a href="#how-it-works">How it works</a>
+        <a class="mobile-waitlist" href="#waitlist">Join the waitlist</a>
+      </div>
+      <div class="nav-actions">
+        <a class="nav-detail" href="#waitlist">Get launch updates</a>
+        <a class="button button-primary" href="#waitlist">Join the waitlist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="siteNav"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero" id="top" aria-labelledby="heroTitle">
+      <div class="hero-grid wrap">
+        <div class="hero-copy">
+          <p class="hero-status reveal is-visible" style="--reveal-delay:40ms"><span class="hero-status-dot" aria-hidden="true"></span>ClikEssence is coming soon</p>
+          <h1 id="heroTitle">Where African creators and brands find their next <span class="accent">great collaboration.</span></h1>
+          <p class="reveal is-visible" style="--reveal-delay:120ms">ClikEssence connects African creators to businesses across Africa and internationally for paid content, brand campaigns, and clearer collaboration from the first brief to final delivery.</p>
+          <div class="hero-actions reveal is-visible" style="--reveal-delay:180ms">
+            <a class="button button-primary" href="#waitlist">Join the waitlist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <a class="button button-light" href="#how-it-works">Discover ClikEssence</a>
+          </div>
+          <p class="hero-note reveal is-visible" style="--reveal-delay:240ms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 7.8 7 10 4.1-2.2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg> Join as a creator or a business. We’ll keep you posted as launch gets closer.</p>
+        </div>
+        <div class="hero-visual reveal is-visible" style="--reveal-delay:160ms" aria-label="A sample creator and brand collaboration">
+          <div class="visual-orbit" aria-hidden="true"></div>
+          <div class="art-board">
+            <div class="art-glow" aria-hidden="true"></div>
+            <span class="orbit" aria-hidden="true"></span>
+            <div class="art-caption"><small>More good work starts here</small><strong>Connect. Create. Grow.</strong></div>
+            <img class="mascot" src="assets/blue-orbit-wave-smile.gif?v=__ASSET_V__" alt="ClikEssence mascot waving">
+          </div>
+          <article class="float-card brief-card" aria-label="Example content brief">
+            <div class="card-kicker"><i aria-hidden="true"></i> Example creator brief</div>
+            <strong>Everyday skincare story</strong>
+            <p>Short-form UGC, beauty and lifestyle</p>
+            <div class="brief-foot"><span>Deliverables</span><b>2 short videos</b></div>
+          </article>
+          <article class="float-card progress-card" aria-label="Example collaboration stages">
+            <div class="progress-title"><strong>A clear path from brief to review</strong><span>In progress</span></div>
+            <div class="progress-track"><span class="done">Brief</span><span class="current">Create</span><span>Review</span></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="capability-band reveal" aria-label="ClikEssence features">
+      <div class="capabilities wrap">
+        <div class="capability-intro"><strong>One place for the whole partnership</strong>From finding the work to keeping delivery on track.</div>
+        <div class="capability-list">
+          <span class="capability"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16v14H4zM8 9h8M8 13h5"/></svg> UGC briefs</span>
+          <span class="capability"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19c2-5 5-8 9-9 2-.5 4-.2 7-3M14 5h6v6"/></svg> Creator proposals</span>
+          <span class="capability"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M8 14h3"/></svg> Campaigns</span>
+          <span class="capability"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/><path d="M4 4h16v16H4z"/></svg> Delivery &amp; review</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="how-it-works" aria-labelledby="howTitle">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">A better way to work together</p>
+          <h2 id="howTitle">From the first idea to finished content.</h2>
+          <p>Every collaboration has a next step. ClikEssence helps African creators and businesses keep the brief, work, and decisions connected.</p>
+        </div>
+        <div class="step-grid">
+          <article class="step-card reveal" style="--reveal-delay:60ms"><span class="step-number">01</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.8"/><path d="m16 16 4.5 4.5M8 10.8h5.6M10.8 8v5.6"/></svg></span><h3>Find a fit</h3><p>Creators explore briefs or pitch a collaboration. Businesses share the content they need and who they hope to reach.</p></article>
+          <article class="step-card reveal" style="--reveal-delay:140ms"><span class="step-number">02</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h14v16H5zM8 8h8M8 12h8M8 16h4"/></svg></span><h3>Agree on the work</h3><p>Deliverables, timelines, and collaboration details are clear before the creator gets to work.</p></article>
+          <article class="step-card reveal" style="--reveal-delay:220ms"><span class="step-number">03</span><span class="step-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5 9 17l11-11"/><path d="M5 4h14v16H5z"/></svg></span><h3>Create and review</h3><p>Share the work, follow feedback, and keep progress visible through to completion.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section audience" aria-labelledby="audienceTitle">
+      <div class="wrap">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Made for both sides</p>
+          <h2 id="audienceTitle">Better work starts with a good match.</h2>
+          <p>Built for African creators and for businesses in Africa and abroad who want authentic partnerships that move.</p>
+        </div>
+        <div class="audience-grid">
+          <article class="audience-card reveal" id="creators" style="--reveal-delay:60ms">
+            <div class="audience-image"><img src="assets/audience-creator.jpg?v=__ASSET_V__" width="900" height="1200" alt="African creator portrait" loading="lazy"></div>
+            <div class="audience-copy">
+              <p class="eyebrow">For creators</p><h3>Make your creativity an opportunity.</h3>
+              <p>Find briefs that suit your style, share your ideas, and keep each collaboration moving with clear next steps.</p>
+              <ul class="audience-points"><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg>Apply to briefs or pitch an idea</li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg>Keep deliverables in view</li></ul>
+              <a class="button button-primary" href="#waitlist" data-join="creator">Join as a creator <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+          <article class="audience-card reveal" id="businesses" style="--reveal-delay:140ms">
+            <div class="audience-image"><img src="assets/audience-business.jpg?v=__ASSET_V__" width="1200" height="800" alt="African business team meeting in Lagos" loading="lazy"></div>
+            <div class="audience-copy">
+              <p class="eyebrow">For businesses</p><h3>Bring your brand story to life.</h3>
+              <p>Share what you need, meet African creators with a point of view, and manage the work from brief through review.</p>
+              <ul class="audience-points"><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg>Share briefs and campaign needs</li><li><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 10 4 4 8-8"/></svg>Follow delivery and feedback</li></ul>
+              <a class="button button-primary" href="#waitlist" data-join="business">Join as a business <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section waitlist" id="waitlist" aria-labelledby="waitTitle">
+      <div class="wait-grid wrap">
+        <div class="wait-copy reveal">
+          <p class="eyebrow">Coming soon</p>
+          <h2 id="waitTitle">Be here when it begins.</h2>
+          <p>Join the waitlist as a business or creator and we’ll share updates as we get closer to opening across Africa and beyond.</p>
+          <div class="contact-list">
+            <a href="tel:+2349122083549"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 3h3l2 5-2 1.5a14 14 0 0 0 4.5 4.5L16 12l5 2v3c0 1.1-.9 2-2 2C10.7 19 5 13.3 5 6c0-1.7.9-3 2-3Z"/></svg>0912 208 3549</a>
+            <a href="https://www.instagram.com/clikessence/" target="_blank" rel="noopener noreferrer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>Instagram</a>
+          </div>
+        </div>
+        <div class="form-card reveal" style="--reveal-delay:100ms">
+          <form id="waitlist-form" action="contact.php" method="post">
+            <div class="form-heading"><h3>Get launch updates</h3><p>Choose how you’ll use ClikEssence, then leave your contact details.</p></div>
+            <div class="hp" aria-hidden="true"><label for="company_website">Website</label><input id="company_website" name="company_website" tabindex="-1" autocomplete="off"></div>
+            <fieldset>
+              <legend>I’m joining as</legend>
+              <div class="choices">
+                <label><input type="radio" name="role" value="creator" required> Creator</label>
+                <label><input type="radio" name="role" value="business"> Business</label>
+              </div>
+            </fieldset>
+            <div class="field"><label for="email">Email address</label><input id="email" name="email" type="email" required maxlength="160" autocomplete="email" placeholder="You@example.com"></div>
+            <div class="field"><label for="phone">Phone number</label><input id="phone" name="phone" type="tel" required maxlength="20" autocomplete="tel" inputmode="tel" placeholder="Your phone number"></div>
+            <button class="button button-primary submit-button" type="submit" data-label="Join the waitlist">Join the waitlist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+            <p class="status" id="form-status" role="status" aria-live="polite"></p>
+            <p class="form-privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 5 6v5c0 4.5 2.9 7.8 7 10 4.1-2.2 7-5.5 7-10V6l-7-3Z"/><path d="m9 12 2 2 4-4"/></svg>We’ll use your contact details for launch updates. They won’t appear on your public profile.</p>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-main wrap">
+      <div class="footer-brand"><strong>ClikEssence</strong><p>Connecting African creators to businesses across Africa and internationally.</p></div>
+      <div class="footer-column"><h2>Explore</h2><ul><li><a href="#businesses">For businesses</a></li><li><a href="#creators">For creators</a></li><li><a href="#how-it-works">How it works</a></li></ul></div>
+      <div class="footer-column"><h2>Connect</h2><ul><li><a href="#waitlist">Join the waitlist</a></li><li><a href="https://www.instagram.com/clikessence/" target="_blank" rel="noopener noreferrer">Instagram</a></li><li><a href="tel:+2349122083549">0912 208 3549</a></li></ul></div>
+    </div>
+    <div class="footer-bottom wrap"><span>© <span id="currentYear">2026</span> ClikEssence. All rights reserved.</span><div class="footer-meta"><a href="#waitlist">Join the waitlist</a></div></div>
+  </footer>
+
+  <button class="back-top" type="button" aria-label="Back to top" aria-hidden="true" tabindex="-1">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <script>
+    (function () {
+      var menuButton = document.querySelector('.menu-toggle');
+      var siteNav = document.getElementById('siteNav');
+      var backTop = document.querySelector('.back-top');
+      var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      menuButton.addEventListener('click', function () {
+        var isOpen = menuButton.getAttribute('aria-expanded') === 'true';
+        menuButton.setAttribute('aria-expanded', String(!isOpen));
+        menuButton.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
+        siteNav.classList.toggle('is-open', !isOpen);
+      });
+      siteNav.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          menuButton.setAttribute('aria-expanded', 'false');
+          menuButton.setAttribute('aria-label', 'Open navigation');
+          siteNav.classList.remove('is-open');
+        });
+      });
+      document.querySelectorAll('[data-join]').forEach(function (link) {
+        link.addEventListener('click', function () {
+          var input = document.querySelector('input[name="role"][value="' + link.getAttribute('data-join') + '"]');
+          if (input) input.checked = true;
+        });
+      });
+      document.getElementById('currentYear').textContent = new Date().getFullYear();
+
+      function updateBackTop() {
+        var doc = document.documentElement;
+        var scrolled = (window.scrollY || doc.scrollTop || 0) / Math.max(1, (doc.scrollHeight - window.innerHeight));
+        var show = scrolled >= 0.5;
+        backTop.classList.toggle('is-visible', show);
+        backTop.setAttribute('aria-hidden', show ? 'false' : 'true');
+        backTop.tabIndex = show ? 0 : -1;
+      }
+      backTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+      });
+      window.addEventListener('scroll', updateBackTop, { passive: true });
+      window.addEventListener('resize', updateBackTop);
+      updateBackTop();
+
+      var reveals = document.querySelectorAll('.reveal');
+      if (reduceMotion || !('IntersectionObserver' in window)) {
+        reveals.forEach(function (el) { el.classList.add('is-visible'); });
+      } else {
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          });
+        }, { threshold: 0.16, rootMargin: '0px 0px -8% 0px' });
+        reveals.forEach(function (el) { observer.observe(el); });
+      }
+
+      document.getElementById('waitlist-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        var form = event.currentTarget;
+        var button = form.querySelector('button[type="submit"]');
+        var status = document.getElementById('form-status');
+        if (button.getAttribute('aria-busy') === 'true') return;
+        button.setAttribute('aria-busy', 'true');
+        button.textContent = 'Please wait…';
+        status.className = 'status';
+        status.textContent = '';
+        fetch(form.action, { method: 'POST', body: new FormData(form) })
+          .then(function (response) { return response.json().then(function (data) { return { ok: response.ok, data: data }; }); })
+          .then(function (result) {
+            if (result.ok && result.data.ok) {
+              if (result.data.reset !== false) form.reset();
+              status.className = 'status ok';
+              status.textContent = result.data.message || "You're on the list. When ClikEssence is ready, we'll let you know.";
+            } else {
+              status.className = 'status bad';
+              status.textContent = (result.data && result.data.message) || 'We could not add you just now.';
+            }
+          })
+          .catch(function () {
+            status.className = 'status bad';
+            status.textContent = 'We could not add you just now. Call us or message us on Instagram.';
+          })
+          .finally(function () {
+            button.removeAttribute('aria-busy');
+            button.innerHTML = button.getAttribute('data-label') + ' <span aria-hidden="true">→</span>';
+          });
+      });
+    })();
+  </script>
+</body>
+</html>
+<?php
+
+$html = ob_get_clean();
 if ($html === false) {
     http_response_code(500);
     header('Content-Type: text/plain; charset=utf-8');
