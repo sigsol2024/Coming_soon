@@ -116,32 +116,13 @@ ob_start();
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     h1, h2, h3, p { margin-top: 0; }
     .hero-status {
-      position: sticky;
-      z-index: 28;
-      top: 74px;
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      margin: 0 0 16px;
-      padding: 10px 14px;
-      border: 1px solid rgba(239,117,31,.28);
-      border-radius: 12px;
-      color: #A44E16;
-      background: rgba(255,247,237,.96);
-      box-shadow: 0 10px 24px rgba(239,117,31,.1);
-      backdrop-filter: blur(10px);
-      font-size: clamp(16px,1.9vw,22px);
+      display: block;
+      margin: 0 0 14px;
+      color: var(--orange);
+      font-size: clamp(18px,2.1vw,26px);
       font-weight: 800;
       letter-spacing: -.02em;
       line-height: 1.2;
-    }
-    .hero-status-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      background: var(--orange);
-      box-shadow: 0 0 0 0 rgba(239,117,31,.45);
-      animation: status-pulse 1.8s ease-out infinite;
     }
     .hero h1 {
       max-width: 560px;
@@ -411,11 +392,6 @@ ob_start();
       transform: translateY(0);
     }
 
-    @keyframes status-pulse {
-      0% { box-shadow: 0 0 0 0 rgba(239,117,31,.42); }
-      70% { box-shadow: 0 0 0 10px rgba(239,117,31,0); }
-      100% { box-shadow: 0 0 0 0 rgba(239,117,31,0); }
-    }
     @keyframes caret-blink {
       0%, 45% { opacity: 1; }
       50%, 100% { opacity: 0; }
@@ -425,7 +401,6 @@ ob_start();
       .nav-links { gap: 17px; }
       .nav-links a { font-size: 10px; }
       .hero-grid { grid-template-columns: minmax(0,1fr) minmax(350px,.92fr); gap: 32px; }
-      .hero-status { top: 68px; }
       .hero h1 { font-size: clamp(30px,4.4vw,44px); }
       .hero-visual { min-height: 520px; }
       .mascot { height: min(88%, 380px); max-width: min(94%, 400px); }
@@ -452,7 +427,6 @@ ob_start();
       .hero h1, .hero-copy > p:not(.hero-note) { margin-right: auto; margin-left: auto; }
       .hero-actions { justify-content: center; }
       .hero-note { justify-content: center; }
-      .hero-status { top: 68px; justify-content: center; }
       .hero-visual { width: min(100%,570px); min-height: 520px; margin: 0 auto; }
       .art-board { inset: 22px 29px 36px; }
       .mascot { height: min(88%, 360px); max-width: min(96%, 380px); bottom: -26px; }
@@ -484,12 +458,8 @@ ob_start();
       .menu-toggle { width: 37px; height: 37px; }
       .hero-grid { gap: 9px; padding-block: 43px 35px; }
       .hero-status {
-        top: 64px;
-        width: fit-content;
-        max-width: 100%;
-        margin: 0 auto 14px;
-        padding: 11px 14px;
-        font-size: clamp(15px,4.6vw,18px);
+        margin: 0 auto 12px;
+        font-size: clamp(17px,5vw,22px);
       }
       .hero h1 {
         margin-bottom: 14px;
@@ -591,7 +561,6 @@ ob_start();
         animation-iteration-count: 1 !important;
       }
       .reveal { opacity: 1; transform: none; }
-      .hero-status-dot { animation: none; }
       .hero h1 .accent-line { transform: rotate(-1.7deg) scaleX(1); transition: none; }
       .hero h1 .accent-cursor { display: none; }
     }
@@ -620,7 +589,7 @@ ob_start();
     <section class="hero" id="top" aria-labelledby="heroTitle">
       <div class="hero-grid wrap">
         <div class="hero-copy">
-          <p class="hero-status"><span class="hero-status-dot" aria-hidden="true"></span>ClikEssence is coming soon</p>
+          <p class="hero-status">ClikEssence is coming soon</p>
           <h1 id="heroTitle"><span class="hero-lead">Where African creators and brands find their next</span> <span class="accent"><span class="accent-text" data-type-text="great collaboration.">great collaboration.</span><span class="accent-cursor" aria-hidden="true"></span><span class="accent-line" aria-hidden="true"></span></span></h1>
           <p>ClikEssence connects African creators to businesses across Africa and internationally for paid content, brand campaigns, and clearer collaboration from the first brief to final delivery.</p>
           <div class="hero-actions">
