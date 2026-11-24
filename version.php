@@ -7,4 +7,4 @@ declare(strict_types=1);
  * Asset URLs already fingerprint from file mtime/size.
  * Bump only for a forced global refresh.
  */
-return '20261125-3';
+return '20261125-4';

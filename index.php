@@ -116,19 +116,28 @@ ob_start();
     .eyebrow { display: inline-flex; align-items: center; gap: 9px; margin: 0 0 17px; color: var(--blue); font-size: 10px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
     h1, h2, h3, p { margin-top: 0; }
     .hero-status {
+      position: sticky;
+      z-index: 28;
+      top: 74px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      margin: 0 0 14px;
-      color: var(--orange);
-      font-size: clamp(15px,1.7vw,20px);
+      gap: 11px;
+      margin: 0 0 16px;
+      padding: 10px 14px;
+      border: 1px solid rgba(239,117,31,.28);
+      border-radius: 12px;
+      color: #A44E16;
+      background: rgba(255,247,237,.96);
+      box-shadow: 0 10px 24px rgba(239,117,31,.1);
+      backdrop-filter: blur(10px);
+      font-size: clamp(16px,1.9vw,22px);
       font-weight: 800;
       letter-spacing: -.02em;
       line-height: 1.2;
     }
     .hero-status-dot {
-      width: 10px;
-      height: 10px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background: var(--orange);
       box-shadow: 0 0 0 0 rgba(239,117,31,.45);
@@ -143,6 +152,7 @@ ob_start();
       line-height: 1.12;
       letter-spacing: -.04em;
     }
+    .hero-lead { display: inline; }
     .hero h1 .accent {
       position: relative;
       display: inline;
@@ -191,10 +201,10 @@ ob_start();
       position: absolute;
       z-index: 3;
       left: 50%;
-      bottom: -18px;
+      bottom: -34px;
       width: auto;
-      height: min(58%, 260px);
-      max-width: none;
+      height: min(86%, 400px);
+      max-width: min(92%, 420px);
       object-fit: contain;
       object-position: bottom center;
       transform: translateX(-50%);
@@ -226,26 +236,17 @@ ob_start();
     .progress-track .current::before { border-color: var(--sky); box-shadow: 0 0 0 3px rgba(32,155,249,.13); }
 
     .capability-band {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      border-block: 1px solid #D8E5F3;
-      background: linear-gradient(180deg,#F4F8FC 0%,#EEF5FB 100%);
-    }
-    .capability-band::before {
-      position: absolute;
-      z-index: -1;
-      inset: 0;
-      content: "";
-      opacity: .07;
-      background: url("assets/topography.svg?v=__ASSET_V__") center / 480px auto;
-      pointer-events: none;
+      border-block: 1px solid #E6EDF5;
+      background: #fff;
     }
     .capabilities { min-height: 118px; display: flex; align-items: center; justify-content: space-between; gap: 24px; padding-block: 10px; }
     .capability-intro { max-width: 250px; color: #5F7088; font-size: 11px; line-height: 1.55; }
     .capability-intro strong { display: block; margin-bottom: 4px; color: var(--ink); font-size: 14px; letter-spacing: -.02em; }
     .capability-list { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 10px; }
     .capability {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
       display: inline-flex;
       align-items: center;
       gap: 8px;
@@ -254,35 +255,29 @@ ob_start();
       border: 1px solid rgba(22,55,158,.12);
       border-radius: 12px;
       color: #31465F;
-      background: rgba(255,255,255,.92);
+      background: #F8FBFE;
       box-shadow: 0 8px 18px rgba(6,20,49,.05);
       font-size: 11px;
       font-weight: 700;
       white-space: nowrap;
     }
-    .capability svg { width: 15px; height: 15px; color: var(--blue); }
+    .capability::before {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      opacity: .06;
+      background: url("assets/topography.svg?v=__ASSET_V__") center / 280px auto;
+      pointer-events: none;
+    }
+    .capability svg { position: relative; z-index: 1; width: 15px; height: 15px; color: var(--blue); }
 
     .section { padding-block: 96px; }
     .section-heading { max-width: 665px; margin: 0 auto 40px; text-align: center; }
     .section-heading .eyebrow { margin-bottom: 12px; }
     .section-heading h2 { margin-bottom: 12px; color: var(--ink); font-size: clamp(32px,3.8vw,47px); font-weight: 700; line-height: 1.14; letter-spacing: -.045em; }
     .section-heading > p:last-child { margin-bottom: 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
-    .how {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      background: radial-gradient(ellipse at 12% 0%,rgba(32,155,249,.08),transparent 42%),linear-gradient(180deg,#F3F8FD 0%,#F7FAFE 55%,#fff 100%);
-    }
-    .how::before {
-      position: absolute;
-      z-index: 0;
-      inset: 0;
-      content: "";
-      opacity: .055;
-      background: url("assets/topography.svg?v=__ASSET_V__") center / 520px auto;
-      pointer-events: none;
-    }
-    .how .wrap { position: relative; z-index: 1; }
+    .how { background: #F7FAFE; }
     .step-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 16px; }
     .step-card {
       position: relative;
@@ -430,8 +425,10 @@ ob_start();
       .nav-links { gap: 17px; }
       .nav-links a { font-size: 10px; }
       .hero-grid { grid-template-columns: minmax(0,1fr) minmax(350px,.92fr); gap: 32px; }
+      .hero-status { top: 68px; }
       .hero h1 { font-size: clamp(30px,4.4vw,44px); }
-      .hero-visual { min-height: 455px; }
+      .hero-visual { min-height: 520px; }
+      .mascot { height: min(88%, 380px); max-width: min(94%, 400px); }
       .brief-card { left: -13px; }
       .progress-card { right: -8px; }
       .audience-card { grid-template-columns: .78fr 1.22fr; }
@@ -455,8 +452,10 @@ ob_start();
       .hero h1, .hero-copy > p:not(.hero-note) { margin-right: auto; margin-left: auto; }
       .hero-actions { justify-content: center; }
       .hero-note { justify-content: center; }
-      .hero-visual { width: min(100%,570px); min-height: 465px; margin: 0 auto; }
-      .art-board { inset: 22px 29px 19px; }
+      .hero-status { top: 68px; justify-content: center; }
+      .hero-visual { width: min(100%,570px); min-height: 520px; margin: 0 auto; }
+      .art-board { inset: 22px 29px 36px; }
+      .mascot { height: min(88%, 360px); max-width: min(96%, 380px); bottom: -26px; }
       .brief-card { left: 0; }
       .progress-card { right: 1px; }
       .capabilities { align-items: flex-start; flex-direction: column; justify-content: center; gap: 11px; padding-block: 17px; }
@@ -484,19 +483,42 @@ ob_start();
       .nav-actions > .button { min-height: 38px; padding-inline: 10px; font-size: 8px; }
       .menu-toggle { width: 37px; height: 37px; }
       .hero-grid { gap: 9px; padding-block: 43px 35px; }
-      .hero-status { margin-bottom: 12px; font-size: clamp(14px,4.4vw,18px); }
-      .hero h1 { margin-bottom: 14px; font-size: clamp(28px,8.2vw,38px); }
+      .hero-status {
+        top: 64px;
+        width: fit-content;
+        max-width: 100%;
+        margin: 0 auto 14px;
+        padding: 11px 14px;
+        font-size: clamp(15px,4.6vw,18px);
+      }
+      .hero h1 {
+        margin-bottom: 14px;
+        max-width: 19.5em;
+        font-size: clamp(22px,6.1vw,28px);
+        line-height: 1.2;
+        letter-spacing: -.03em;
+      }
+      .hero-lead {
+        display: block;
+        max-width: 15.8em;
+        margin-inline: auto;
+      }
+      .hero h1 .accent {
+        display: inline-block;
+        margin-top: 4px;
+        font-size: 1.08em;
+      }
       .hero-copy > p:not(.hero-note) { margin-bottom: 19px; font-size: 11px; line-height: 1.7; }
       .hero-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
       .hero-actions .button { min-height: 44px; padding-inline: 8px; font-size: 9px; }
       .hero-note { align-items: flex-start; font-size: 8px; text-align: left; }
-      .hero-visual { min-height: 360px; margin-top: 8px; }
+      .hero-visual { min-height: 430px; margin-top: 8px; }
       .visual-orbit { width: 87%; }
-      .art-board { inset: 15px 11px; border-radius: 19px; }
+      .art-board { inset: 15px 11px 34px; border-radius: 19px; }
       .art-caption { top: 19px; left: 19px; }
       .art-caption small { font-size: 7px; }
       .art-caption strong { max-width: 150px; font-size: 15px; }
-      .mascot { height: min(62%, 220px); bottom: -12px; }
+      .mascot { height: min(90%, 310px); max-width: min(98%, 340px); bottom: -22px; }
       .back-top { width: 42px; height: 42px; right: 14px; bottom: 16px; border-radius: 12px; }
       .brief-card { top: 51px; left: -2px; width: 153px; padding: 9px 10px; border-radius: 10px; }
       .card-kicker { margin-bottom: 5px; font-size: 6px; }
@@ -599,7 +621,7 @@ ob_start();
       <div class="hero-grid wrap">
         <div class="hero-copy">
           <p class="hero-status"><span class="hero-status-dot" aria-hidden="true"></span>ClikEssence is coming soon</p>
-          <h1 id="heroTitle">Where African creators and brands find their next <span class="accent"><span class="accent-text" data-type-text="great collaboration.">great collaboration.</span><span class="accent-cursor" aria-hidden="true"></span><span class="accent-line" aria-hidden="true"></span></span></h1>
+          <h1 id="heroTitle"><span class="hero-lead">Where African creators and brands find their next</span> <span class="accent"><span class="accent-text" data-type-text="great collaboration.">great collaboration.</span><span class="accent-cursor" aria-hidden="true"></span><span class="accent-line" aria-hidden="true"></span></span></h1>
           <p>ClikEssence connects African creators to businesses across Africa and internationally for paid content, brand campaigns, and clearer collaboration from the first brief to final delivery.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#waitlist">Join the waitlist <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
